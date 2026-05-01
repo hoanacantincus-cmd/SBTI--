@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Poker SBTI - 德州扑克身份测试</title>
+  <meta name="description" content="基于 SBTI 模型的德州扑克身份测试：25 道题生成你的牌桌身份、五维画像、隐藏天赋和分享卡片。">
+  <meta property="og:title" content="Poker SBTI - 德州扑克身份测试">
+  <meta property="og:description" content="25 道题测出你的 Poker SBTI 牌桌身份。你是高额桌幽灵，还是快乐送财童子？">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="poker-sbti-preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <link rel="stylesheet" href="poker-sbti.css">
+  <!-- 51.la 统计 -->
+  <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+  <script>LA.init({id:"3PciTSD9vEehGen9",ck:"3PciTSD9vEehGen9"})</script>
+</head>
+<body>
+
+  <!-- ===== 首页 ===== -->
+  <div id="screen-intro" class="screen active">
+    <div class="container">
+      <div class="hero-card">
+        <div class="hero-decoration"></div>
+        <div class="hero-content">
+          <div class="hero-left">
+            <div class="hero-badge">♠ Poker SBTI ♠</div>
+            <h1 class="hero-title">Poker SBTI<br><span class="hero-title-sub">德州扑克身份测试</span></h1>
+            <p class="hero-desc">
+              基于 SBTI 牌手画像模型，25道题、5大维度、15种牌桌身份。<br>
+              测出你在牌桌上到底是鲨鱼还是……鱼。
+            </p>
+            <div class="hero-meta">
+              <span>⏱ 约4分钟</span>
+              <span>♠ 5大维度</span>
+              <span>♣ 15种身份</span>
+            </div>
+          </div>
+          <div class="hero-right">
+            <div class="hero-symbol">
+              <div class="symbol-ring"></div>
+              <div class="symbol-core">♠</div>
+            </div>
+          </div>
+        </div>
+        <button class="btn-primary" id="btn-start">开始身份解密 →</button>
+      </div>
+
+      <div class="info-cards">
+        <div class="info-card">
+          <div class="info-icon">♠</div>
+          <h3>SBTI模型</h3>
+          <p>风险偏好 · 情绪控制 · 策略风格 · 社交博弈 · 牌桌格局</p>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">♣</div>
+          <h3>15种身份</h3>
+          <p>高额桌幽灵、GTO机器人、All-in教父、午夜收割者...</p>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">♦</div>
+          <h3>隐藏天赋</h3>
+          <p>每种身份都有专属的隐藏技能与进阶形态等你解锁</p>
+        </div>
+      </div>
+
+      <div class="disclaimer-card">
+        <p>⚠ 本测试纯属娱乐，不代表真实牌技水平。结果仅供自嘲和朋友间互相伤害使用，请勿当真。理性娱乐，珍爱bankroll。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 答题页 ===== -->
+  <div id="screen-test" class="screen">
+    <div class="container">
+      <div class="test-header">
+        <div class="test-title">Poker SBTI</div>
+        <div class="progress-wrapper">
+          <div class="progress-bar">
+            <span class="progress-fill" id="progress-fill"></span>
+          </div>
+          <div class="progress-text" id="progress-text">1 / 25</div>
+        </div>
+      </div>
+
+      <div class="question-card" id="question-card">
+        <div class="question-number" id="q-number">Q1</div>
+        <div class="question-text" id="q-text"></div>
+        <div class="options" id="q-options"></div>
+      </div>
+
+      <div class="test-nav">
+        <button class="btn-secondary" id="btn-prev" disabled>← 上一题</button>
+        <button class="btn-primary" id="btn-next" disabled>下一题 →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 结果页 ===== -->
+  <div id="screen-result" class="screen">
+    <div class="container">
+      <!-- 类型标题卡 -->
+      <div class="result-type-card" id="result-type-card">
+        <div class="result-decoration"></div>
+        <div class="result-badge-row">
+          <span class="result-badge" id="result-badge"></span>
+        </div>
+        <div class="result-code" id="result-code"></div>
+        <div class="result-title" id="result-title"></div>
+        <div class="result-subtitle" id="result-subtitle"></div>
+        <div class="result-tagline" id="result-tagline"></div>
+        <div class="result-match" id="result-match"></div>
+      </div>
+
+      <!-- 身份解读 -->
+      <div class="result-section">
+        <h3 class="section-title">♠ 身份解读</h3>
+        <div class="analysis-card" id="result-description"></div>
+      </div>
+
+      <!-- 五维画像 -->
+      <div class="result-section">
+        <h3 class="section-title">♣ 五维牌手画像</h3>
+        <div class="dimensions-grid" id="dimensions-grid"></div>
+      </div>
+
+      <!-- 牌桌身份 -->
+      <div class="result-section">
+        <h3 class="section-title">♦ 牌桌身份</h3>
+        <div class="mission-card" id="mission-card"></div>
+      </div>
+
+      <!-- 广告解锁区域 -->
+      <div class="result-section">
+        <div class="unlock-card" id="unlock-card">
+          <div class="unlock-locked" id="unlock-locked">
+            <div class="lock-icon">🔒</div>
+            <h3>隐藏天赋 & 进阶身份</h3>
+            <p>每个牌手都有尚未觉醒的隐藏技能和更高阶的身份形态...</p>
+            <button class="btn-unlock" id="btn-unlock">
+              <span class="unlock-ad-icon">▶</span>
+              观看短视频解锁你的隐藏天赋
+            </button>
+            <p class="unlock-hint">约15-30秒 · 解锁后永久可见</p>
+          </div>
+          <div class="unlock-content" id="unlock-content" style="display:none">
+            <div class="hidden-attr-section">
+              <h3>🃏 隐藏天赋</h3>
+              <p id="hidden-attr-text"></p>
+            </div>
+            <div class="advanced-section">
+              <h3>⚡ 进阶身份</h3>
+              <div class="advanced-name" id="advanced-name"></div>
+              <p id="advanced-desc"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 分享与重测 -->
+      <div class="result-actions">
+        <button class="btn-primary" id="btn-share">生成分享卡片 ♠</button>
+        <button class="btn-secondary" id="btn-retest">重新测试</button>
+      </div>
+
+      <div class="disclaimer-card">
+        <p>⚠ 本测试纯属娱乐，不代表真实牌技水平。不可用于评估牌手能力或任何严肃用途。理性娱乐，珍爱bankroll。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 分享图片弹窗 -->
+  <div class="modal-overlay" id="share-modal" style="display:none">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>长按保存分享卡片</h3>
+        <button class="modal-close" id="modal-close">✕</button>
+      </div>
+      <div class="modal-body">
+        <canvas id="share-canvas" style="display:none"></canvas>
+        <img id="share-img" class="share-preview" alt="分享卡片">
+      </div>
+      <p class="share-tip">长按图片保存到相册，发给牌友一起测试吧！</p>
+    </div>
+  </div>
+
+  <script src="poker-sbti.js"></script>
+</body>
+</html>
