@@ -5,7 +5,7 @@ set PORT=%~1
 if "%PORT%"=="" set PORT=8080
 
 cd /d "%~dp0"
-echo Serving Poker SBTI from: %CD%
+echo Serving SBTI Poker Card from: %CD%
 echo Open: http://localhost:%PORT%/index.html
 start "" "http://localhost:%PORT%/index.html"
 

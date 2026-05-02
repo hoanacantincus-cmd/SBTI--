@@ -15,7 +15,7 @@ if (-not $python) {
 }
 
 $url = "http://localhost:$Port/index.html"
-Write-Host "Serving Poker SBTI from: $Root"
+Write-Host "Serving SBTI Poker Card from: $Root"
 Write-Host "Open: $url"
 Start-Process $url
 
